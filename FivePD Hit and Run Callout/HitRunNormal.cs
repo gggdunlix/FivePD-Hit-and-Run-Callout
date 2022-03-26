@@ -8,19 +8,19 @@ using CitizenFX.Core.Native;
 
 
 
-[CalloutProperties("Vehicle Collision", "GGGDunlix", "1.2.2")]
-public class CarCrash : FivePD.API.Callout
+[CalloutProperties("Hit and Run (Normal)", "GGGDunlix", "0.1.0")]
+public class HitAndRunNormal : FivePD.API.Callout
 {
     private Ped driver1, driver2;
     private Vehicle car1, car2;
-    public CarCrash()
+    public HitAndRunNormal()
     {
 
         InitInfo(World.GetNextPositionOnStreet(Vector3Extension.Around(Game.PlayerPed.Position, 400)));
 
-        ShortName = "Vehicle Collision";
-        CalloutDescription = "A vehicle collision has occured. Get the location and assess. ";
-        ResponseCode = 1;
+        ShortName = "Hit and Run";
+        CalloutDescription = "A vehicle collision has occured, and one of the drivers fleed. Respond in code 2. ";
+        ResponseCode = 2;
         StartDistance = 150f;
     }
 
@@ -63,9 +63,9 @@ public class CarCrash : FivePD.API.Callout
         World.ShootBullet(Location, car1.Position, Game.PlayerPed, WeaponHash.RayPistol, 0);
         World.ShootBullet(Location, car1.Position, Game.PlayerPed, WeaponHash.RayPistol, 0);
         car1.Deform(Location, 10000, 100);
-        car2.Deform(Location, 10000, 100);
+        
         car1.EngineHealth = 5;
-        car2.EngineHealth = 5;
+        
         car1.BodyHealth = 1;
         car2.BodyHealth = 2;
 
@@ -80,6 +80,8 @@ public class CarCrash : FivePD.API.Callout
         driver2.AlwaysKeepTask = true;
         driver2.BlockPermanentEvents = true;
 
+        driver2.SetIntoVehicle(car2, VehicleSeat.Driver);
+
     }
 
     public override void OnStart(Ped player)
@@ -90,9 +92,9 @@ public class CarCrash : FivePD.API.Callout
         car2.Deform(Location, 10000, 100);
         World.ShootBullet(Location, car1.Position, Game.PlayerPed, WeaponHash.RayPistol, 0);
         driver1.AttachBlip();
-        driver2.AttachBlip();
         car1.AttachBlip();
-        car2.AttachBlip();
+
+        driver2.Task.FleeFrom(player);
 
     }
 }
