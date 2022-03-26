@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32228.343
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FivePD Hit and Run Callout", "FivePD Hit and Run Callout\FivePD Hit and Run Callout.csproj", "{9A6E6A5F-0B91-4A80-BC2C-5181F4724421}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9A6E6A5F-0B91-4A80-BC2C-5181F4724421}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A6E6A5F-0B91-4A80-BC2C-5181F4724421}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A6E6A5F-0B91-4A80-BC2C-5181F4724421}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A6E6A5F-0B91-4A80-BC2C-5181F4724421}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A2744F5E-C49F-4615-851F-30328A09FA23}
+	EndGlobalSection
+EndGlobal
