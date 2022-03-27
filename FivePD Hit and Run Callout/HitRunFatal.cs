@@ -8,7 +8,7 @@ using CitizenFX.Core.Native;
 
 
 
-[CalloutProperties("Hit and Run (Fatal)", "GGGDunlix", "0.3.0")]
+[CalloutProperties("Hit and Run (Fatal)", "GGGDunlix", "0.3.1")]
 public class HitAndRunFatal : FivePD.API.Callout
 {
     private Ped driver1, driver2;
@@ -59,7 +59,7 @@ public class HitAndRunFatal : FivePD.API.Callout
            };
 
         car1 = await SpawnVehicle(cars[RandomUtils.Random.Next(cars.Length)], Location, 180);
-        car2 = await SpawnVehicle(cars[RandomUtils.Random.Next(cars.Length)], Location + 1);
+        car2 = await SpawnVehicle(cars[RandomUtils.Random.Next(cars.Length)], Location + 2);
         car1.Deform(Location, 10000, 100);
         
         car1.EngineHealth = 5;
