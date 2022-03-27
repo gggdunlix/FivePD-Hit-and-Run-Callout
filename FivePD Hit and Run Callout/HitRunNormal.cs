@@ -8,7 +8,7 @@ using CitizenFX.Core.Native;
 
 
 
-[CalloutProperties("Hit and Run (Normal)", "GGGDunlix", "0.2.0")]
+[CalloutProperties("Hit and Run (Normal)", "GGGDunlix", "0.3.0")]
 public class HitAndRunNormal : FivePD.API.Callout
 {
     private Ped driver1, driver2;
@@ -80,6 +80,8 @@ public class HitAndRunNormal : FivePD.API.Callout
 
         driver2.SetIntoVehicle(car2, VehicleSeat.Driver);
 
+        Utilities.ExcludeVehicleFromTrafficStop(car1.NetworkId, true);
+        Utilities.ExcludeVehicleFromTrafficStop(car2.NetworkId, true);
     }
 
     public override void OnStart(Ped player)
