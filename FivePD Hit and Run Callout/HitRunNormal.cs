@@ -8,7 +8,7 @@ using CitizenFX.Core.Native;
 
 
 
-[CalloutProperties("Hit and Run (Normal)", "GGGDunlix", "0.3.1")]
+[CalloutProperties("Hit and Run (Normal)", "GGGDunlix", "1.3.4")]
 public class HitAndRunNormal : FivePD.API.Callout
 {
     private Ped driver1, driver2;
@@ -56,7 +56,41 @@ public class HitAndRunNormal : FivePD.API.Callout
                VehicleHash.Comet2,
                VehicleHash.Comet3,
                VehicleHash.Felon,
-           };
+               VehicleHash.Stanier,
+               VehicleHash.Superd,
+               VehicleHash.Tailgater,
+               VehicleHash.Warrener,
+               VehicleHash.Stratum,
+               VehicleHash.Washington,
+               VehicleHash.Surge,
+               VehicleHash.Baller,
+               VehicleHash.Baller2,
+               VehicleHash.Baller4,
+               VehicleHash.Baller6,
+               VehicleHash.BJXL,
+               VehicleHash.Cavalcade,
+               VehicleHash.Cavalcade2,
+               VehicleHash.Granger,
+               VehicleHash.Gresley,
+               VehicleHash.Huntley,
+               VehicleHash.Habanero,
+               VehicleHash.Mesa,
+               VehicleHash.Felon,
+               VehicleHash.Felon2,
+               VehicleHash.Zion,
+               VehicleHash.Zion2,
+               VehicleHash.Windsor,
+               VehicleHash.Windsor2,
+               VehicleHash.Buccaneer,
+               VehicleHash.Buccaneer2,
+               VehicleHash.Dominator,
+               VehicleHash.Faction,
+               VehicleHash.Faction2,
+               VehicleHash.Faction3,
+               VehicleHash.Gauntlet,
+               VehicleHash.Gauntlet2,
+
+               };
 
         car1 = await SpawnVehicle(cars[RandomUtils.Random.Next(cars.Length)], Location, 180);
         car2 = await SpawnVehicle(cars[RandomUtils.Random.Next(cars.Length)], Location + 2);
@@ -82,6 +116,13 @@ public class HitAndRunNormal : FivePD.API.Callout
 
         Utilities.ExcludeVehicleFromTrafficStop(car1.NetworkId, true);
         Utilities.ExcludeVehicleFromTrafficStop(car2.NetworkId, true);
+
+        PlayerData playerData = Utilities.GetPlayerData();
+        VehicleData datacar = await Utilities.GetVehicleData(car2.NetworkId);
+        string CallSign = playerData.Callsign;
+        string vehicleName = datacar.Name;
+        string carColor = datacar.Color;
+        ShowNetworkedNotification("~b~" + CallSign + ",~y~ the suspect is driving a " + carColor + " " + vehicleName + ".", "CHAR_CALL911", "CHAR_CALL911", "Dispatch", "Pursuit", 15f);
     }
 
     public override void OnStart(Ped player)
@@ -94,6 +135,7 @@ public class HitAndRunNormal : FivePD.API.Callout
         car1.AttachBlip();
 
         driver2.Task.FleeFrom(player);
+        driver2.DrivingStyle = DrivingStyle.Rushed;
 
     }
 }

@@ -50,7 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HitRunBikeFatal.cs" />
     <Compile Include="HitRunFatal.cs" />
+    <Compile Include="HitRunBikeNormal.cs" />
     <Compile Include="HitRunNormal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
