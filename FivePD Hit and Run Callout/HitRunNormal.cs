@@ -8,7 +8,7 @@ using CitizenFX.Core.Native;
 
 
 
-[CalloutProperties("Hit and Run (Normal)", "GGGDunlix", "1.3.4")]
+[CalloutProperties("Hit and Run (Normal)", "GGGDunlix", "2.0.0")]
 public class HitAndRunNormal : FivePD.API.Callout
 {
     private Ped driver1, driver2;
@@ -27,6 +27,13 @@ public class HitAndRunNormal : FivePD.API.Callout
     public override async Task OnAccept()
     {
         InitBlip(25);
+
+    }
+
+    public async override void OnStart(Ped player)
+    {
+        base.OnStart(player);
+
 
         var cars = new[]
           {
@@ -97,7 +104,7 @@ public class HitAndRunNormal : FivePD.API.Callout
         car1.Deform(Location, 10000, 100);
 
         car1.EngineHealth = 5;
-        
+
         car1.BodyHealth = 1;
         car2.BodyHealth = 2;
 
@@ -123,18 +130,14 @@ public class HitAndRunNormal : FivePD.API.Callout
         string vehicleName = datacar.Name;
         string carColor = datacar.Color;
         ShowNetworkedNotification("~b~" + CallSign + ",~y~ the suspect is driving a " + carColor + " " + vehicleName + ".", "CHAR_CALL911", "CHAR_CALL911", "Dispatch", "Pursuit", 15f);
-    }
-
-    public override void OnStart(Ped player)
-    {
-        base.OnStart(player);
 
         car1.Deform(Location, 10000, 100);
         car2.Deform(Location, 10000, 100);
         driver1.AttachBlip();
         car1.AttachBlip();
 
-        driver2.Task.FleeFrom(player);
+        var pursuit = Pursuit.RegisterPursuit(driver2);
+        driver2.Task.FleeFrom(driver1);
         driver2.DrivingStyle = DrivingStyle.Rushed;
 
     }

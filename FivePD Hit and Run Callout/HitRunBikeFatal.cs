@@ -8,7 +8,7 @@ using CitizenFX.Core.Native;
 
 
 
-[CalloutProperties("Hit and Run Bicycle (Fatal)", "GGGDunlix", "1.3.4")]
+[CalloutProperties("Hit and Run Bicycle (Fatal)", "GGGDunlix", "2.0.0")]
 public class HitAndRunBikeFatal : FivePD.API.Callout
 {
     private Ped biker, driver2;
@@ -36,6 +36,13 @@ public class HitAndRunBikeFatal : FivePD.API.Callout
     public override async Task OnAccept()
     {
         InitBlip(25);
+
+    }
+
+    public async override void OnStart(Ped player)
+    {
+        base.OnStart(player);
+
 
         var cars = new[]
           {
@@ -117,7 +124,7 @@ public class HitAndRunBikeFatal : FivePD.API.Callout
         bike.Deform(Location, 10000, 100);
 
         bike.EngineHealth = 5;
-        
+
         bike.BodyHealth = 1;
         car2.BodyHealth = 2;
 
@@ -138,25 +145,21 @@ public class HitAndRunBikeFatal : FivePD.API.Callout
 
         Utilities.ExcludeVehicleFromTrafficStop(bike.NetworkId, true);
         Utilities.ExcludeVehicleFromTrafficStop(car2.NetworkId, true);
-        
+
         PlayerData playerData = Utilities.GetPlayerData();
         VehicleData datacar = await Utilities.GetVehicleData(car2.NetworkId);
         string CallSign = playerData.Callsign;
         string vehicleName = datacar.Name;
         string carColor = datacar.Color;
         ShowNetworkedNotification("~b~" + CallSign + ",~y~ the suspect is driving a " + carColor + " " + vehicleName + ".", "CHAR_CALL911", "CHAR_CALL911", "Dispatch", "Pursuit", 15f);
-    }
-
-    public override void OnStart(Ped player)
-    {
-        base.OnStart(player);
 
         bike.Deform(Location, 10000, 100);
         car2.Deform(Location, 10000, 100);
         biker.AttachBlip();
         bike.AttachBlip();
 
-        driver2.Task.FleeFrom(player);
+        var pursuit = Pursuit.RegisterPursuit(driver2);
+        driver2.Task.FleeFrom(biker);
         driver2.DrivingStyle = DrivingStyle.Rushed;
 
     }
